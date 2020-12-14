@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
 @import 'normalize.min.css'
 
-* {
+*, *:before, *:after {
 	box-sizing: content-box;
 }
 
