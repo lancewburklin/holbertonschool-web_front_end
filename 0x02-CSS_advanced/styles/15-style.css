@@ -4,7 +4,7 @@
 @import 'normalize.min.css'
 
 *, *:before, *:after {
-	box-sizing: content-box;
+	box-sizing: border-box;
 }
 
 html {
