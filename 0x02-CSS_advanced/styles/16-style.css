@@ -95,5 +95,6 @@ a:active {
 
 .container {
 	width: 960px;
-	margin: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
 }
