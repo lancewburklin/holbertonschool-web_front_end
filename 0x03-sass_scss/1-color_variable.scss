@@ -1,9 +1,11 @@
 /* Creating a varible and assigning colors */
+
 $el_colour: #3D3D3D;
-.body {
+
+body {
 	color: $el_colour;
 }
 
-.p {
+p {
 	color: $el_colour;
 }
