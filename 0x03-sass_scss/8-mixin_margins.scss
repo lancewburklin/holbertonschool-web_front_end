@@ -1,0 +1,14 @@
+/* Mixin time */
+
+@mixin the-name($left) {
+	margin-left: $left;
+	margin-right: $left;
+}
+
+body {
+	@include the-name(10px);
+}
+
+div {
+	@include the-name(15px);
+}
