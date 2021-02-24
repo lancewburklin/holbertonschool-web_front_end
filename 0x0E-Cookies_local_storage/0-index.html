@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>Login to the website</h1>
+	<form>
+		<input type="text" id="firstname" placeholder="Firstname">
+		<input type="text" id="email" placeholder="Email">
+		<button type="button" class="logIn" onclick="setCookies()">Log me in</button>
+	</form>
+	<h1>Cookies</h1>
+	<button type="button" class="showC" onClick="showCookies()">Show the cookies</button>
+	<script type="application/javascript">
+		function setCookies() {
+			let info = document.getElementById("firstname").value;
+			document.cookie = `firstname=${info}`
+			info = document.getElementById("email").value;
+			document.cookie = `email=${info}`
+		}
+		function showCookies() {
+			let stuff = document.createElement('p');
+			stuff.innerHTML = document.cookie;
+			document.body.appendChild(stuff);
+		}
+	</script>
+</body>
+</html>
