@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script type="application/javascript">
+		let availableItems = ['Shampoo', 'Soap', 'Sponge', 'Water'];
+		let cart = getCartFromStorage();
+		if (typeof(Storage) === "undefined") {
+			alert('Sorry, your browser does not support Web storage. Try again with a better one')
+		} else {
+			createStore();
+			displayCart();
+		}
+		function getCartFromStorage() {
+			if (sessionStorage.getItem('cart') == undefined) {
+				return {};
+			}
+			let items = JSON.parse(sessionStorage.getItem('cart'));
+			return items;
+		}
+		function addItemToCart(item) {
+			if (cart[`${item}`]) {
+				cart[`${item}`] = cart[`${item}`] + 1;
+			} else {
+				cart[`${item}`] = 1;
+			}
+			sessionStorage.setItem('cart', JSON.stringify(cart));
+			displayCart();
+		}
+		function removeItemfromCart(item) {
+			if (cart[`${item}`] != undefined) {
+				delete cart[`${item}`];
+				sessionStorage.setItem('cart', JSON.stringify(cart));
+				displayCart();
+			}
+		}
+		function clearCart() {
+			sessionStorage.clear();
+			cart = {};
+			displayCart();
+		}
+		function createStore() {
+			let text = document.createElement('h2');
+			text.innerHTML = 'Available products';
+			let store = document.createElement('ul');
+			store.setAttribute('id', 'store');
+			document.body.appendChild(store);
+			for (let i = 0; i < availableItems.length; i++) {
+				let new_item = document.createElement('li');
+				new_item.setAttribute('onClick', `addItemToCart('${availableItems[i]}')`);
+				new_item.innerHTML = availableItems[i];
+				document.getElementById('store').appendChild(new_item);
+			}
+		}
+		function displayCart() {
+			let count = 0;
+			if (document.getElementById('cart_list') != null) {
+				document.getElementById('cart_list').remove();
+			}
+			new_div = document.createElement('div');
+			new_div.setAttribute('id', 'cart_list');
+			document.body.appendChild(new_div);
+			let text = document.createElement('h2');
+			text.innerHTML = 'Your cart:';
+			document.getElementById('cart_list').appendChild(text);
+			updateCart();
+		}
+		function updateCart() {
+			let items = getCartFromStorage();
+			console.log(items);
+			if (Object.keys(items).length === 0) {
+				let text = document.createElement('p');
+				text.innerHTML = "Your cart is empty";
+				document.getElementById('cart_list').appendChild(text);
+			} else {
+				clear_cart = document.createElement('a');
+				clear_cart.style.textDecoration = 'none';
+				clear_cart.setAttribute('onClick', 'clearCart()');
+				clear_cart.innerHTML = 'Clear my cart';
+				document.getElementById('cart_list').appendChild(clear_cart);
+				for (const [key, value] of Object.entries(items)) {
+					let link = document.createElement('a');
+					link.style.textDecoration = 'none';
+					let text = document.createElement('p');
+					text.innerHTML = `${key} x ${value} `;
+					link.innerHTML = '(remove)';
+					link.setAttribute('onClick', `removeItemfromCart('${key}')`);
+					text.appendChild(link);
+					document.getElementById('cart_list').appendChild(text);
+				}
+			}
+		}
+	</script>
+</body>
+</html>
