@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+	<head>
+
+		<meta charset="utf-8" />
+		<title>Task 0</title>
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+	</head>
+
+	<body>
+		<script type="application/javascript">
+			function createFamilyTree() {
+				$("body").append('<table class="temp"></table>');
+				$(".temp").append('<tr class="thead"></tr>');
+				$(".temp .thead").append('<th>Firstname</th><th>Lastname</th>');
+				$(".temp").append('<div class="tbody"</div>')
+			}
+			function addNewMember(firstName, lastName, position) {
+				if (position === "before") {
+					$(".temp .tbody").first().prepend(`<tr><td>${firstName}</td><td>${lastName}</td><td class="del">(x)</td></tr>`);
+				} else {
+					$(".temp .tbody").append(`<tr><td>${firstName}</td><td>${lastName}</td><td class="del">(x)</td></tr>`);
+				}
+				$('.del').css('background-color', 'orange');
+				$('.del').click(function() { $(this).parent().remove(); });
+			}
+			function createForm() {
+				$(".temp").before("<form class='add-form' id='submit-form'></form>");
+				$(".add-form").append('<input id="fname" type="text"></input><input id="lname" type="text"></input>');
+				$(".add-form").append('<select name="bafter" id="selection"><option value="after">After</option><option value="before">Before</option></select>');
+				$(".add-form").append(`<input type="submit" class="thingy"></input>`);
+				$(".thingy").click(function () { addNewMember(document.getElementById('fname').value, document.getElementById('lname').value, document.getElementById('selection').value) });
+				$("#submit-form").submit(function(){
+					return false;
+				});
+			}
+			createFamilyTree();
+			createForm();
+			addNewMember('Guillaume', 'Salva');
+			addNewMember('Arielle', 'Snizt');
+			addNewMember('Fanette', 'Snizt');
+			addNewMember('Gerard', 'Snizt');
+			addNewMember('Victor', 'Salva', 'before');
+		</script>
+	</body>
+
+</html>
